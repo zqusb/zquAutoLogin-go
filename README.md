@@ -4,7 +4,7 @@
 #### 立项目的
 将登录校园网的繁琐操作集成到路由器中完成<br>
 所以程序将采用命令行方式运行<br>
-#### 运行
+#### 使用方法
 ```
 Usage: zquAutoLogin-go -u [studentId] -p [password]
 Options:
