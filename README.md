@@ -1,6 +1,6 @@
 # zquAutoLogin-go
 ### 肇庆学院校园网wifi自动登录程序
-电信和移动网络均适用
+电信和移动网络均适用，欢迎提交bug
 ```
 Usage: zquAutoLogin-go -u [studentId] -p [password]
 Options:
