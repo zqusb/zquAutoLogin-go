@@ -1,7 +1,8 @@
 # zquAutoLogin-go
 ### 肇庆学院校园网wifi自动登录程序
 电信和移动网络均适用<br>
-请使用命令行运行程序，程序启动后，将会循环检查网络状态<br>
+立项目的是将登录校园网的繁琐操作集成到路由器中完成，所以程序将采用命令行方式运行
+程序启动后，将会循环检查网络状态<br>
 
 ```
 Usage: zquAutoLogin-go -u [studentId] -p [password]
@@ -11,4 +12,5 @@ Options:
  -u string
         设置校园网登录学号
 ```
+
 欢迎提交bug<br>
