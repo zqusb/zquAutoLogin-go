@@ -85,8 +85,7 @@ func networkTest() {
 			logger.Info("已经通过局域网验证")
 			networkTest()
 		} else {
-			logger.Error("账号或密码错误")
-			os.Exit(0)
+			logger.Error("局域网验证失败")
 		}
 	} else if test_status == "enet.10000.gd.cn:10001"{
 		logger.Info("开始进行电信网络验证")
@@ -164,10 +163,7 @@ func autoLogin_2 (userid, password string) string {
 	img, _ := os.Create("image.jpg")
 	io.Copy(img, resp.Body)
 	captcha := getCaptcha()
-	logger.Debug("Code:", captcha)
-	
 	encode := base64.StdEncoding.EncodeToString([]byte(password))
-	logger.Debug("Encode:", encode)
 	
 	form := url.Values{
 		"edubas" : {wlanacip},
@@ -180,7 +176,6 @@ func autoLogin_2 (userid, password string) string {
 	
 	referer := "http://enet.10000.gd.cn:10001/zq/zq251/index.jsp?"
 	referer += formStr
-	logger.Debug("Referer:", referer)
 	
 	req, _ = http.NewRequest("POST", login_url, strings.NewReader(form.Encode()))
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
@@ -197,7 +192,7 @@ func autoLogin_2 (userid, password string) string {
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36")
 	req.Header.Set("Cookie", cookie)
 	
-	logger.Debug("正在登录电信网络")
+	logger.Info("正在登录电信网络")
 	resp, _ = client.Do(req)
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
