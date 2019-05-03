@@ -13,7 +13,7 @@ Options:
  -u string
         设置校园网登录学号
 ```
-###### Windows 
+#### Windows 
 在程序所在文件夹打开cmd或PowerShell<br>
 ```
 // 64位
@@ -21,7 +21,7 @@ Options:
 // 32位
 ./zquAutoLogin-go_windows_i386.exe -u 学号 -p 密码
 ```
-###### Linux/路由器
+#### Linux/路由器
 ```
 chmod 777 zquAutoLogin-go_xxx
 ./zquAutoLogin-go_xxx
