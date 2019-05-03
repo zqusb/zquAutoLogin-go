@@ -5,6 +5,6 @@ Usage: zquAutoLogin-go -u [studentId] -p [password]
 Options:
  -p string
         设置校园网登录密码(身份证后8位)
-  -u string
+ -u string
         设置校园网登录学号
 ```
