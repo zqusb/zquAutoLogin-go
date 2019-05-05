@@ -20,7 +20,7 @@ Options:
 // 64位
 ./zquAutoLogin-go_windows_amd64.exe -u 学号 -p 密码
 // 32位
-./zquAutoLogin-go_windows_i386.exe -u 学号 -p 密码
+./zquAutoLogin-go_windows_i386.exe -u 学号 -p 密码 -t
 ```
 **[便捷启动方式]**<br>
 在同目录下新建start.bat文件<br>
