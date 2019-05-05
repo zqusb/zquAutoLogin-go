@@ -10,7 +10,7 @@ Usage: zquAutoLogin-go -u [studentId] -p [password]
 Options:
  -p string
         设置校园网登录密码(身份证后8位)
- -t    循环运行(按Ctrl+C结束程序)
+ -t     循环运行(按Ctrl+C结束程序)
  -u string
         设置校园网登录学号
 ```
