@@ -50,27 +50,12 @@ func main(){
 	
 	logger.Info("学号：", u, "密码：", p)
 	
-	for true {
-		if isLoginTime() {
-			networkTest()
-			if t {
-				time.Sleep(time.Duration(10)*time.Second)
-			} else {
-				break;
-			}
-		}
+	networkTest()
+	
+	for t {
+		time.Sleep(time.Duration(1)*time.Minute)
+		networkTest()
 	}
-}
-
-func isLoginTime() bool {
-	if time.Now().Weekday() < 6 {
-		if time.Now().Hour() < 2 {
-			logger.Info("不在认证时间内")
-			return false
-		} 
-	}
-	logger.Info("在认证时间内，开始检查网络状态")
-	return true
 }
 
 func networkTest() {
