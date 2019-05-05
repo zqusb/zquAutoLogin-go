@@ -17,7 +17,7 @@ echo [zquAutoLogin] 学号:$1 密码:$2
 if [ ! -f "/tmp/zquAutoLogin-go" ];then
 	echo [zquAutoLogin] 程序不存在,开始下载自动登录程序...
 	## 【注意】请根据系统架构修改程序下载链接
-	wget -O /tmp/zquAutoLogin-go https://zqu-auto-login-go-1252708919.cos.ap-guangzhou.myqcloud.com/zquAutoLogin-go-v1.1
+	wget -O /tmp/zquAutoLogin-go https://zqu-auto-login-go-1252708919.cos.ap-guangzhou.myqcloud.com/zquAutoLogin-go_linux_mipsle
 	echo [zquAutoLogin] 程序下载完成
 else
 	echo [zquAutoLogin] 程序存在,开始运行程序
