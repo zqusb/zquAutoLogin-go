@@ -26,3 +26,4 @@ fi
 
 chmod 777 /tmp/zquAutoLogin-go
 /tmp/zquAutoLogin-go -u $1 -p $2
+ 
