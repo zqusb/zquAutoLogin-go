@@ -52,7 +52,7 @@ crontab -e
 ```
 在文本最下方加入下面内容(每5分钟运行一次脚本)<br>
 ```
-5 * * * * /etc/storage/zquAutoLogin.sh 学号 密码 >> /tmp/zqu.log
+*/5 * * * * /etc/storage/zquAutoLogin.sh 学号 密码 >> /tmp/zqu.log
 ```
 程序启动后，将会循环检查网络状态<br>
 程序写的比较弱智，欢迎提交修改意见和bug<br>
