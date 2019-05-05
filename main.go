@@ -25,11 +25,13 @@ import (
 var (
 	u string
 	p string
+	t bool
 )
 
 func init(){
 	flag.StringVar(&u, "u", "", "设置校园网登录学号")
 	flag.StringVar(&p, "p", "", "设置校园网登录密码(身份证后8位)")
+	flag.BoolVar(&t, "t", false, "循环运行(按Ctrl+C结束程序)")
 	flag.Usage = usage
 }
 
@@ -45,12 +47,30 @@ func main(){
 		flag.Usage()
 		return
 	}
-
-	for true { 
-		logger.Info("学号：", u, "密码：", p)
-		networkTest()
-		time.Sleep(time.Duration(10)*time.Second)
+	
+	logger.Info("学号：", u, "密码：", p)
+	
+	for true {
+		if isLoginTime() {
+			networkTest()
+			if t {
+				time.Sleep(time.Duration(10)*time.Second)
+			} else {
+				break;
+			}
+		}
 	}
+}
+
+func isLoginTime() bool {
+	if time.Now().Weekday() < 6 {
+		if time.Now().Hour() < 2 {
+			logger.Info("不在认证时间内")
+			return false
+		} 
+	}
+	logger.Info("在认证时间内，开始检查网络状态")
+	return true
 }
 
 func networkTest() {
