@@ -50,7 +50,7 @@ nohup ./zquAutoLogin-go_xxx &
 ```
 crontab -e
 ```
-在文本最下方加入下面内容(每5分钟运行一次脚本)<br>
+输入i进入编辑模式，在文本最下方加入下面内容(每5分钟运行一次脚本)，按Esc输入:wq保存并退出<br>
 ```
 */5 * * * * /etc/storage/zquAutoLogin.sh 学号 密码 >> /tmp/zqu.log
 ```
