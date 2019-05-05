@@ -36,7 +36,7 @@ exit
 ```
 双击start.bat即可运行程序<br>
 可以创建start.bat的快捷方式到任意位置运行<br>
-#### Linux/路由器
+#### Linux/路由器 
 ```
 chmod 777 zquAutoLogin-go_xxx
 ./zquAutoLogin-go_xxx
