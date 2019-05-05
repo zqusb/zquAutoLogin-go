@@ -28,9 +28,9 @@ Options:
 ```
 :: 语句前加 rem 起注释作用，该行语句不会执行
 :: 执行一次
-zquAutoLogin-go_windows_amd64 -u 2016241314xx -p 身份证后8位
+zquAutoLogin-go_windows_amd64.exe -u 2016241314xx -p 身份证后8位
 :: 循环执行
-:: zquAutoLogin-go_windows_amd64 -u 2016241314xx -p 身份证后8位
+:: zquAutoLogin-go_windows_amd64.exe -u 2016241314xx -p 身份证后8位
 pause
 exit
 ```
