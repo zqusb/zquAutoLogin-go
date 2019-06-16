@@ -56,6 +56,9 @@ crontab -e
 ```
 路由器设置需要通过路由器界面将脚本提交至闪存，重启后才能保留脚本文件<br><br>
 
+**国内对象存储下载**<br>
+https://zqu-auto-login-go-1252708919.cos.ap-guangzhou.myqcloud.com/对应平台 <br>
+
 程序写的比较弱智，欢迎提交修改意见和bug<br>
 
 #### 更新内容
