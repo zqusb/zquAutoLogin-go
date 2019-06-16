@@ -48,7 +48,7 @@ func main(){
 		return
 	}
 	
-	logger.Info("学号：", u, "密码：", p)
+	logger.Info("-v1.2- 学号:", u, "密码:", p)
 	
 	networkTest()
 	
@@ -70,7 +70,6 @@ func networkTest() {
 	if test_status == "quan.suning.com" {
 		logger.Info("可以上网")
 	} else if test_status == "10.0.1.51" {
-		logger.Info("开始进行局域网验证")
 		resp.Request.ParseForm();
 		formStr := "wlanuserip="
 		formStr += resp.Request.Form.Get("wlanuserip")
@@ -86,20 +85,24 @@ func networkTest() {
 		formStr += resp.Request.Form.Get("t")
 		formStr += "&url="
 		formStr += resp.Request.Form.Get("url")	
-		if autoLogin_1(formStr) == "success" {
+		result, message := autoLogin_1(formStr)
+		if result == "success" {
 			logger.Info("已经通过局域网验证")
+			time.Sleep(time.Duration(3)*time.Second)
 			networkTest()
 		} else {
-			logger.Error("局域网验证失败")
+			logger.Error(message)
 		}
 	} else if test_status == "enet.10000.gd.cn:10001"{
-		logger.Info("开始进行电信网络验证")
-		autoLogin_2(u, p)
+		if autoLogin_2(u, p) == "success" {
+			time.Sleep(time.Duration(3)*time.Second)
+			networkTest()
+		}
 	}
 }
 
 
-func autoLogin_1(str string) string {
+func autoLogin_1(str string) (string, string) {
 	userid := u
 	password := string([]rune(p)[2:])
 	
@@ -132,7 +135,7 @@ func autoLogin_1(str string) string {
 	var m map[string]interface{}
 	json.Unmarshal(body, &m)
 
-	return m["result"].(string)
+	return m["result"].(string), m["message"].(string)
 
 }
 
@@ -152,14 +155,13 @@ func autoLogin_2 (userid, password string) string {
 	formStr += resp.Request.Form.Get("wlanuserip")
 	wlanacip := resp.Request.Form.Get("wlanacip")
 	wlanuserip := resp.Request.Form.Get("wlanuserip")
-	logger.Debug("wlanacip:", wlanacip, "wlanuserip:", wlanuserip)
+	//logger.Debug("wlanacip:", wlanacip, "wlanuserip:", wlanuserip)
 	
 	client := &http.Client{}
 	req, _ := http.NewRequest("GET", captcha_url, nil)
 	resp, _ = client.Do(req)
 	cookie := strings.Split(resp.Header.Get("Set-Cookie"), ";")[0]
 	
-	logger.Debug("Cookie:", cookie)
 	req, _ = http.NewRequest("GET", captcha_url, nil)
 	req.Header.Set("Accept-Encoding", "gzip, deflate")
 	req.Header.Set("Cookie", cookie)
@@ -201,11 +203,15 @@ func autoLogin_2 (userid, password string) string {
 	resp, _ = client.Do(req)
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
-	if strings.Index(string(body), "success") > 0 {
+	result := string(body)
+	if strings.Index(result, "success") > 0 {
 		logger.Info("登录成功")
 		return "success"
 	} else {
-		logger.Error("登录失败")
+		r := result[402 : len(result)-600]
+		val := strings.Index(r, "\"")
+		r = r[:val]
+		logger.Error(r)
 		return "fail"
 	}
 
