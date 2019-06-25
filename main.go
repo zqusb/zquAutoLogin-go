@@ -48,7 +48,7 @@ func main(){
 		return
 	}
 	
-	logger.Info("-v1.2- 学号:", u, "密码:", p)
+	logger.Info("-v1.2.2- 学号:", u, "密码:", p)
 	
 	networkTest()
 	
@@ -60,16 +60,21 @@ func main(){
 
 func networkTest() {
 	url := "http://quan.suning.com/getSysTime.do"
-	resp, err := http.Head(url)
+	timeout := time.Duration(5 * time.Second)
+	client := &http.Client{Timeout: timeout,}
+	req, _ := http.NewRequest("GET", url, nil)	
+	resp, err := client.Do(req)
 	if err != nil {
-		// handle error
+		logger.Error("获取重定向连接失败" )
+		os.Exit(2)
 	}
 	defer resp.Body.Close()
+	
 	test_status := resp.Request.URL.Host
 	
 	if test_status == "quan.suning.com" {
 		logger.Info("可以上网")
-	} else if test_status == "10.0.1.51" {
+	} else if (test_status == "10.0.1.51" || test_status == "eportal.zqu.edu.cn"){
 		resp.Request.ParseForm();
 		formStr := "wlanuserip="
 		formStr += resp.Request.Form.Get("wlanuserip")
