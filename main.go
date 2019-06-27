@@ -25,12 +25,15 @@ import (
 var (
 	u string
 	p string
+	v bool
 	t bool
+	version string
 )
 
 func init(){
 	flag.StringVar(&u, "u", "", "设置校园网登录学号")
 	flag.StringVar(&p, "p", "", "设置校园网登录密码(身份证后8位)")
+	flag.BoolVar(&v, "v", false, "检查版本")
 	flag.BoolVar(&t, "t", false, "循环运行(按Ctrl+C结束程序)")
 	flag.Usage = usage
 }
@@ -40,22 +43,63 @@ func usage(){
 	flag.PrintDefaults()
 }
 
+
+
 func main(){
+
+	version = "v1.3.0"
+	
 	flag.Parse()
 	
-	if u == "" || p == ""{
+	if v {
+		versionCompare(version, getVersion())	
+	} else if u == "" || p == "" {
 		flag.Usage()
 		return
-	}
+	} else {
+		logger.Info("version:", version)
+		logger.Info("帐号:", u, "密码:", p)
 	
-	logger.Info("-v1.2.2- 学号:", u, "密码:", p)
-	
-	networkTest()
-	
-	for t {
-		time.Sleep(time.Duration(1)*time.Minute)
 		networkTest()
+	
+		for t {
+			time.Sleep(time.Duration(1)*time.Minute)
+			networkTest()
+		}
 	}
+	
+
+}
+
+func getVersion() string{
+	url := "https://api.github.com/repos/ooxoop/zquAutoLogin-go/releases/latest"
+	timeout := time.Duration(5 * time.Second)
+	client := &http.Client{Timeout: timeout,}
+	req, _ := http.NewRequest("GET", url, nil)	
+	resp, err := client.Do(req)
+		if err != nil {
+		logger.Error("获取最新版本号失败，请检查网络" )
+		os.Exit(2)
+	}
+	defer resp.Body.Close()
+	body, _ := ioutil.ReadAll(resp.Body)
+	var m map[string]interface{}
+	json.Unmarshal(body, &m)
+	
+	return m["tag_name"].(string)
+}
+
+func versionCompare(v1, v2 string) {
+	if v1[1] == v2[1] {
+		if v1[3] == v2[3] {
+			if v1[5] == v2[5] {
+				fmt.Println("[1]当前版本为最新版本，无需更新")
+				os.Exit(1)
+			}
+		}
+	}
+	fmt.Println("[0]检查到新版本，开始更新...")
+	os.Exit(1)
 }
 
 func networkTest() {
