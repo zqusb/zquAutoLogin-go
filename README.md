@@ -58,6 +58,7 @@ crontab -e
 
 **国内对象存储下载地址**<br>
 https://zqu-auto-login-go-1252708919.cos.ap-guangzhou.myqcloud.com/对应平台 <br>
+栗子:https://zqu-auto-login-go-1252708919.cos.ap-guangzhou.myqcloud.com/zquAutoLogin-go_linux_mipsle<br>
 
 程序写的比较弱智，欢迎提交修改意见和bug<br>
 
